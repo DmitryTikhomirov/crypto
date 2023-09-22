@@ -1,3 +1,7 @@
+package com.javarush.service;
+
+import com.javarush.service.CryptoService;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
