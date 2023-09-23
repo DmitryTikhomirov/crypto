@@ -1,40 +1,45 @@
 package com.javarush;
 
+import com.javarush.exceptions.FileException;
+import com.javarush.service.ConsoleService;
 import com.javarush.service.CryptoService;
 import com.javarush.service.FileService;
 
-import java.util.Scanner;
-
-import static com.javarush.constants.Consts.MAIN_MENU;
+import static com.javarush.constants.Const.WYAT_TO_DO;
+import static com.javarush.constants.Const.MAIN_MENU;
 
 public class Main {
 
 
+    public static void main(String[] args) throws FileException {
+        ConsoleService consoleService = new ConsoleService();
+        CryptoService cryptoService = new CryptoService(new FileService(), consoleService);
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        CryptoService cryptoService = new CryptoService(new FileService());
-        String taskNumber = readStringFromConsole(scanner);
-        chooseTask(scanner, cryptoService, taskNumber);
-        scanner.close();
-    }
-
-    private static void chooseTask(Scanner scanner, CryptoService cryptoService, String taskNamber) {
-        switch (taskNamber) {
-            case "1" -> cryptoService.encryption(scanner);
-            case "2" -> cryptoService.decryption(scanner);
-            case "3" -> cryptoService.decryptionBruteForce(scanner);
-            case "4" -> cryptoService.decryptionStatistic(scanner);
-            default -> System.out.println("Вы ничего не выбрали. Выход из программы.");
+        try {
+            chooseTask(cryptoService, consoleService);
+        }   catch (FileException e){
+            System.out.println(" File error");
         }
+       
+
     }
 
-    private static String readStringFromConsole(Scanner scanner) {
-        System.out.println(MAIN_MENU);
-        return scanner.nextLine();
-    }
+    private static void chooseTask(CryptoService cryptoService, ConsoleService consoleService) throws FileException {
+        while (true) {
+            switch (consoleService.readFromConsole(MAIN_MENU)) {
+                case "1" -> cryptoService.encryption();
+                case "2" -> cryptoService.decryption();
+                case "3" -> cryptoService.decryptionBruteForce();
+                case "4" -> cryptoService.decryptionStatistic();
+                case "5" -> {
+                    return;
+                }
+                default -> System.out.println(WYAT_TO_DO);
+
+            }
+        }
 
 
-}
+    }}
 
 

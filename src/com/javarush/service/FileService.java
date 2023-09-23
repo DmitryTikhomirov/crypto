@@ -1,41 +1,44 @@
 package com.javarush.service;
 
-import com.javarush.service.CryptoService;
+import com.javarush.exceptions.FileException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+
+import static com.javarush.constants.Const.LIST_OF_SYSTEM_FILES;
+import static com.javarush.constants.Errors.*;
 
 public class FileService {
 
-    private static final List<String> notValidFile = List.of(".bash_history",
-            ".bash_logout", ".bash_profile");
 
 
-    String readFile(String inputFile) {   // чтение текста из файла
-        String result = null;
+    /**
+     * Чтение текста из файла
+     */
+    public String readFile(String inputFile) throws FileException {
+        String result;
+            if(LIST_OF_SYSTEM_FILES.contains(inputFile)) {
+                throw new FileException(ERROR_SYSTEM_FILE, inputFile);
+            }
         try {
-            if(notValidFile.contains(inputFile)) throw new IOException();
             result = Files.readString(Paths.get(inputFile));
-
         } catch (IOException e) {
-            System.out.printf("\nФайл %s не найден", inputFile);
-
+            throw new FileException(ERROR_FILE_NOT_FOUND, inputFile);
         }
         return result;
     }
+    /**
+     *  Запись текста в файл
+     */
+    public void writeFile(String outputFile, String text) throws FileException {
 
+        try (PrintWriter out = new PrintWriter(outputFile);){
 
-    void writeFile(String outputFile) {             //    Запись текста в файл
-
-        try {
-            PrintWriter out = new PrintWriter(outputFile);
-            out.println(String.valueOf(CryptoService.text));
-            out.close();
+            out.println(text);
         } catch (IOException e) {
-            System.out.printf("\nФайл %s не записан.", outputFile);
+            throw new FileException(ERROR_WRITE_TO_FILE, outputFile);
         }
     }
 }
