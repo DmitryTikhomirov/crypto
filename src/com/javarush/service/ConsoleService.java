@@ -10,12 +10,18 @@ public class ConsoleService {
         this.scanner = new Scanner(System.in);
     }
 
-    public String readFromConsole(String messag) {
-        System.out.println(messag);
-        return scanner.nextLine();
+    public String readFromConsole(String message) {
+        String console;
+        System.out.println(message);
+        do {
+            console = scanner.nextLine();
+        }while (console.equals(""));
+        return console;
+
+
     }
-    public  int readIntegerFromConsole(String messag){
-        System.out.println(messag);
+    public  int readIntegerFromConsole(String message){
+        System.out.println(message);
         return scanner.nextInt();
     }
 }

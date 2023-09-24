@@ -2,6 +2,9 @@ package com.javarush.constants;
 
 import java.util.List;
 
+/**
+ * Константы
+ */
 public class Const {
 
     public static final String MAIN_MENU = """

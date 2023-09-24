@@ -24,6 +24,10 @@ public class Main {
 
     }
 
+    /**
+     * Главное меню
+     *
+     */
     private static void chooseTask(CryptoService cryptoService, ConsoleService consoleService) throws FileException {
         while (true) {
             switch (consoleService.readFromConsole(MAIN_MENU)) {

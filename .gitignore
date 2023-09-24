@@ -28,12 +28,13 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-/text1.txt
+
 /text2.txt
 /text3.txt
-/text4.txt
+
 /encriptor.iml
 /.idea/misc.xml
 /.idea/modules.xml
 /.idea/vcs.xml
 /.idea/workspace.xml
+/.idea/uiDesigner.xml

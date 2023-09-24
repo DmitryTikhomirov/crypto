@@ -50,7 +50,7 @@ public class CryptoService {
         String stringText = fileService.readFile(inputFile);
         setSubstitutionTable(readKey());
         fileService.writeFile(outputFile, new String(crypt(stringText.toCharArray())));
-        System.out.println(FILE_ENCRYPT);
+       System.out.println(FILE_ENCRYPT);
     }
 
     public void decryption() throws FileException {

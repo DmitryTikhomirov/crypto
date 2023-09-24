@@ -16,6 +16,7 @@ public class FileService {
 
     /**
      * Чтение текста из файла
+     *
      */
     public String readFile(String inputFile) throws FileException {
         String result;
